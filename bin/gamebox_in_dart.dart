@@ -1,5 +1,28 @@
-import 'package:gamebox_in_dart/gamebox_in_dart.dart' as gamebox_in_dart;
+import 'package:gamebox_in_dart/main.dart';
+import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 
-void main(List<String> arguments) {
-  print('Hello world: ${gamebox_in_dart.calculate()}!');
+Future<void> main() async {
+  clearScreen();
+
+  try {
+    String programLoop;
+    do {
+      clearScreen();
+
+      asciiLogo();
+      await typeWriterEffect("Welcome to GameBox!");
+      print("");
+      await typeWriterEffect("This is a developing service with games being coded every week!");
+      await awaitContinue();
+      
+      await appLoop();
+      programLoop = continueAppLoop();
+    } while ('y' == programLoop);
+  } catch(e) {
+    print("There was an error: $e");
+  } finally {
+    print("");
+    await typeWriterEffect("Thank you for using GameBox.");
+    await typeWriterEffect("Come back soon!");
+  }
 }
