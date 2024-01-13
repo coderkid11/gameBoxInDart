@@ -1,2 +1,5 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+# gameBoxInDart
+
+A port of coderkid11/gameBox into dart
+
+Work In Progress
