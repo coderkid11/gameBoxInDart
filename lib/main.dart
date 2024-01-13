@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
+import 'package:gamebox_in_dart/users/user_system.dart';
 
 void clearScreen() {
   if (Platform.isWindows) {
@@ -16,6 +17,14 @@ Future<void> typeWriterEffect(String text) async {
     await Future.delayed(Duration(milliseconds: 30));
   }
   stdout.writeln();
+}
+
+Future<String> typeWriterEffectInput(String text) async {
+  for (int i = 0; i < text.length; i++) {
+    stdout.write(text[i]);
+    await Future.delayed(Duration(milliseconds: 30));
+  }
+  return stdin.readLineSync()!;
 }
 
 String continueAppLoop() {
@@ -34,4 +43,14 @@ Future<void> awaitContinue() async {
 Future<void> appLoop() async {
   clearScreen();
   asciiLogo();
+
+  User user = User();
+
+  String programLoop;
+
+  do {
+    programLoop = continueAppLoop();
+    
+  } while ('y' == programLoop);
+
 }
