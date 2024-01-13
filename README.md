@@ -1,5 +1,2 @@
-# gameBoxInDart
-
-This is a port of coderkid11/GameBox to dart
-
-WIP
+A sample command-line application with an entrypoint in `bin/`, library code
+in `lib/`, and example unit test in `test/`.
