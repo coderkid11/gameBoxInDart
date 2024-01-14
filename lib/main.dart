@@ -11,10 +11,14 @@ void clearScreen() {
   }
 }
 
+Future<void> sleep(Duration duration) {
+  return Future.delayed(duration, () => {});
+}
+
 Future<void> typeWriterEffect(String text) async {
   for (int i = 0; i < text.length; i++) {
     stdout.write(text[i]);
-    await Future.delayed(Duration(milliseconds: 30));
+    await sleep(Duration(milliseconds: 30));
   }
   stdout.writeln();
 }
@@ -22,7 +26,7 @@ Future<void> typeWriterEffect(String text) async {
 Future<String> typeWriterEffectInput(String text) async {
   for (int i = 0; i < text.length; i++) {
     stdout.write(text[i]);
-    await Future.delayed(Duration(milliseconds: 30));
+    await sleep(Duration(milliseconds: 30));
   }
   return stdin.readLineSync()!;
 }
@@ -35,12 +39,26 @@ String continueAppLoop() {
   return programLoop;
 }
 
-Future<void> awaitContinue() async {
+int getColumnLength(List<List<String>> array, int columnIndex) {
+  int length = 0;
+
+  for (int i = 0; i < array.length; i++) {
+    if (array[i].length > columnIndex) {
+      length = length < array[i][columnIndex].length
+          ? array[i][columnIndex].length
+          : length;
+    }
+  }
+
+  return length;
+}
+
+void awaitContinue() async {
   stdout.write("Press ENTER to continue");
   stdin.readByteSync();
 }
 
-Future<void> appLoop() async {
+void appLoop() async {
   clearScreen();
   asciiLogo();
 
@@ -49,7 +67,14 @@ Future<void> appLoop() async {
   String programLoop;
 
   do {
-    programLoop = continueAppLoop();
+    clearScreen();
+    asciiLogo();
+    
+    if (!user.exitApp) {
+      programLoop = continueAppLoop();
+    } else {
+      programLoop = 'n';
+    }
     
   } while ('y' == programLoop);
 

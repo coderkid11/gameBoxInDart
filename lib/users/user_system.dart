@@ -1,75 +1,81 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:gamebox_in_dart/main.dart';
-import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
+import 'package:gamebox_in_dart/users/login_choice.dart';
+import 'package:gamebox_in_dart/users/login.dart';
+import 'package:gamebox_in_dart/users/sign_up.dart';
 
 class User {
   late String username;
   late String password;
-  late bool errorHappened;
+  late int loginChoice;
+  bool errorHappened = false;
+  bool loginOptionSuccesful = false;
+  bool loginSuccesful = false;
+  bool exitApp = false;
 
   User() {
-    do {
-      clearScreen();
-      asciiLogo();
-      loginMenu();
-      loginLogic();
-    } while (errorHappened);
+    List<String> userDetails = initialiseUser();
+
+    username = userDetails[0];
+    password = userDetails[1];
   }
 
-  Future<dynamic> loginMenu() async {
-    int windowWidth = 15;
+  List<String> initialiseUser() {
+    List<String> userDetails  = ['','',''];
+    LoginChoice loginChoice = LoginChoice();
 
-    for (var i = 0; i <= windowWidth; i++) {
-      stdout.write("-");
-    }
-    print("");
-
-    print("|  Login Menu  |");
-    print("|              |");
-    print("|  1. Sign Up  |");
-    print("|  2. Login    |");
-    print("|  3. Leave    |");
-    print("|              |");
-
-    for (var i = 0; i <= windowWidth; i++) {
-      stdout.write("-");
-    }
-    print("");
-  }
-
-  Future<dynamic> loginLogic() async {
-    stdout.write("Choice (1/2/3): ");
-    int choice = int.parse(stdin.readLineSync()!);
-
-    try {
-      switch (choice) {
+    switch (loginChoice.loginChoice) {
       case 1:
-        errorHappened = false;
-        signUp();
+        userDetails = signUp();
         break;
       case 2:
-        login();
-        errorHappened = false;
+        userDetails = loginLoop();
         break;
       case 3:
-        errorHappened = false;
+        exitApp = true;
         break;
-      default:
-        throw Exception("Choice doesn't exist. Please try again.");
-        }
-      } catch(e) {
-        print("There was an error: $e");
-        awaitContinue();
-        errorHappened = true;
+
     }
+
+    return userDetails;
   }
 
-  Future<dynamic> signUp() async {
-    null;
-  }
+  List<String> loginLoop() {
+    List<String> userDetails  = ['',''];
 
-  Future<dynamic> login() async {
-    null;
+    do {
+      userDetails = login();
+    } while (userDetails[2] != 'true');
+
+    return userDetails;
   }
 }
+
+Future<List<List<String>>> readUserDataFile() async {
+    // open file
+    File file = File('user_details.csv');
+
+    try {
+      // read file
+      String contents = await file.readAsString();
+      // split file into lines in list/array
+      List<String> lines = contents.split('\n');
+
+      // creates 2d list/array
+      List<List<String>> userDetails = [];
+
+      // process each line into list/array
+      for (String line in lines) {
+        // split line into fields using the comma separator
+        List<String> fields = line.split(',');
+
+        // add fields to the userDetails list
+        userDetails.add(fields);
+      }
+
+      return userDetails;
+    } catch(e) {
+      print('Error reading user details: $e');
+      return [];
+    }
+  }
