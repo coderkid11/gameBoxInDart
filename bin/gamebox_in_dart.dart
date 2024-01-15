@@ -17,9 +17,6 @@ void main() async {
     appLoop();
   } catch(e) {
     print("There was an error: $e");
-  } finally {
-    print("");
-    await typeWriterEffect("Thank you for using GameBox.");
-    await typeWriterEffect("Come back soon!");
+    awaitContinue();
   }
 }

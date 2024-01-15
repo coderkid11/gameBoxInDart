@@ -60,24 +60,32 @@ void awaitContinue() async {
 }
 
 void appLoop() async {
-  clearScreen();
-  asciiLogo();
+  
+  try { 
+    UserSystem user = UserSystem();
+    await user.initialiseUserDetails();
+    await user.initialiseLogin();
 
-  User user = User();
-  await user.initialiseUser();
+    String programLoop;
 
-  String programLoop;
-
-  do {
-    clearScreen();
-    asciiLogo();
-    
-    if (!user.exitApp) {
-      programLoop = continueAppLoop();
-    } else {
-      programLoop = 'n';
-    }
-    
-  } while ('y' == programLoop);
-
+    do {
+      clearScreen();
+      asciiLogo();
+      
+      if (!user.exitApp) {
+        programLoop = continueAppLoop();
+      } else {
+        programLoop = 'n';
+      }
+      
+    } while ('y' == programLoop);
+  } catch(e) {
+    print('There was an error: $e');
+    awaitContinue();
+  } finally {
+    // "Thank you" message will only be printed when the user decides to exit
+    print("");
+    await typeWriterEffect("Thank you for using GameBox.");
+    await typeWriterEffect("Come back soon!");
+  }
 }
