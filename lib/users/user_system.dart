@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:gamebox_in_dart/main.dart';
 import 'package:gamebox_in_dart/users/login_choice.dart';
 import 'package:gamebox_in_dart/users/login.dart';
 import 'package:gamebox_in_dart/users/sign_up.dart';
+import 'package:gamebox_in_dart/globals.dart' as globals;
 
 class User {
   late String username;
@@ -13,14 +15,7 @@ class User {
   bool loginSuccesful = false;
   bool exitApp = false;
 
-  User() {
-    List<String> userDetails = initialiseUser();
-
-    username = userDetails[0];
-    password = userDetails[1];
-  }
-
-  List<String> initialiseUser() {
+  Future<List<String>> initialiseUser() async {
     List<String> userDetails  = ['','',''];
     LoginChoice loginChoice = LoginChoice();
 
@@ -29,7 +24,7 @@ class User {
         userDetails = signUp();
         break;
       case 2:
-        userDetails = loginLoop();
+        userDetails = await loginLoop();
         break;
       case 3:
         exitApp = true;
@@ -40,12 +35,20 @@ class User {
     return userDetails;
   }
 
-  List<String> loginLoop() {
+  Future<List<String>> loginLoop() async {
     List<String> userDetails  = ['',''];
 
     do {
-      userDetails = login();
+      userDetails = await login();
+
+      if (userDetails[2] != 'true') {
+        print('Login Unsuccesful');
+        awaitContinue();
+      }
     } while (userDetails[2] != 'true');
+
+    print('Login Succesful');
+    awaitContinue();
 
     return userDetails;
   }
@@ -53,13 +56,17 @@ class User {
 
 Future<List<List<String>>> readUserDataFile() async {
     // open file
-    File file = File('user_details.csv');
+    File file = File('lib/users/user_details.csv');
 
     try {
       // read file
       String contents = await file.readAsString();
       // split file into lines in list/array
       List<String> lines = contents.split('\n');
+
+      globals.debugVariable = 'debug';
+      globals.debugFileRead = contents;
+      globals.lengthOfFile = lines.length;
 
       // creates 2d list/array
       List<List<String>> userDetails = [];

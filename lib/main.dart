@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/users/user_system.dart';
+import 'package:gamebox_in_dart/globals.dart' as globals;
 
 void clearScreen() {
   if (Platform.isWindows) {
@@ -63,6 +64,7 @@ void appLoop() async {
   asciiLogo();
 
   User user = User();
+  await user.initialiseUser();
 
   String programLoop;
 
