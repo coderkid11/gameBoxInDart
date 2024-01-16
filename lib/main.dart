@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/users/user_system.dart';
 import 'package:gamebox_in_dart/globals.dart' as globals;
-import 'package:gamebox_in_dart/games/game_choice.dart';
+import 'package:gamebox_in_dart/games/games_main.dart';
 
 void clearScreen() {
   if (Platform.isWindows) {
@@ -35,6 +35,7 @@ Future<String> typeWriterEffectInput(String text) async {
 
 String continueAppLoop() {
   String programLoop;
+  stdout.writeln();
   stdout.write("Continue (y/n): ");
   programLoop = stdin.readLineSync()!;
 
@@ -71,6 +72,9 @@ void appLoop() async {
     do {
       clearScreen();
       asciiLogo();
+
+      GameSelection gameSelection = GameSelection();
+      gameSelection.gameSelection(user);
 
       if (!user.exitApp) {
         programLoop = continueAppLoop();

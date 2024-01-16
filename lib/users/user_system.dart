@@ -10,6 +10,7 @@ class UserSystem {
   late String username;
   late String password;
   late String name;
+  late int choice;
 
   bool exitApp = false;
   bool errorHappened = false;
@@ -146,6 +147,8 @@ class UserSystem {
               'Due to a Windows bug, please only enter an odd number of characters here.');
           print('If you accidentally enter more then please use ^C to exit.');
         }
+
+        stdout.writeln();
 
         stdout.write('Username: ');
         String username = stdin.readLineSync()!;
