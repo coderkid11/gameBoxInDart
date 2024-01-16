@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/users/user_system.dart';
 import 'package:gamebox_in_dart/globals.dart' as globals;
+import 'package:gamebox_in_dart/games/game_choice.dart';
 
 void clearScreen() {
   if (Platform.isWindows) {
@@ -60,8 +61,7 @@ void awaitContinue() async {
 }
 
 void appLoop() async {
-  
-  try { 
+  try {
     UserSystem user = UserSystem();
     await user.initialiseUserDetails();
     await user.initialiseLogin();
@@ -71,15 +71,14 @@ void appLoop() async {
     do {
       clearScreen();
       asciiLogo();
-      
+
       if (!user.exitApp) {
         programLoop = continueAppLoop();
       } else {
         programLoop = 'n';
       }
-      
     } while ('y' == programLoop);
-  } catch(e) {
+  } catch (e) {
     print('There was an error: $e');
     awaitContinue();
   } finally {

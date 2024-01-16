@@ -4,7 +4,7 @@ import 'package:gamebox_in_dart/globals.dart' as globals;
 
 void main() async {
   clearScreen();
-  
+
   try {
     clearScreen();
 
@@ -15,7 +15,7 @@ void main() async {
     awaitContinue();
 
     appLoop();
-  } catch(e) {
+  } catch (e) {
     print("There was an error: $e");
     awaitContinue();
   }

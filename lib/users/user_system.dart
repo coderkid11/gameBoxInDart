@@ -52,7 +52,8 @@ class UserSystem {
 
   Future<int> findUserRow(String username, String password) async {
     for (int i = 1; i < userDetails.length; i++) {
-      if (userDetails[i][1].trim() == username && userDetails[i][2].trim() == password) {
+      if (userDetails[i][1].trim() == username &&
+          userDetails[i][2].trim() == password) {
         // Found the user, return 1-based index
         return i;
       }
@@ -65,8 +66,9 @@ class UserSystem {
       try {
         clearScreen();
         asciiLogo();
-        
-        print('Due to a bug in the current version of Dart, everything here must be an odd number.');
+
+        print(
+            'Due to a bug in the current version of Dart, everything here must be an odd number.');
         print('The name variables must be one word.');
         stdout.writeln();
 
@@ -127,17 +129,23 @@ class UserSystem {
           await initialiseUserDetails();
           await initialiseLogin();
         }
-      } catch(e) {
+      } catch (e) {
         print('There was an error: $e');
-      } 
+      }
     } while (errorHappened);
   }
 
   Future<void> login(userDetails) async {
     do {
-      try{
+      try {
         clearScreen();
         asciiLogo();
+
+        if (Platform.isWindows) {
+          print(
+              'Due to a Windows bug, please only enter an odd number of characters here.');
+          print('If you accidentally enter more then please use ^C to exit.');
+        }
 
         stdout.write('Username: ');
         String username = stdin.readLineSync()!;
@@ -153,23 +161,24 @@ class UserSystem {
           this.password = userDetails[userRow][2];
 
           stdout.writeln();
-          print('Login Succesful. Welcome to GameBox, ${userDetails[userRow][0]}.');
+          print(
+              'Login Succesful. Welcome to GameBox, ${userDetails[userRow][0]}.');
           awaitContinue();
           loginSuccesful = true;
         } else {
-            errorHappened = true;
-            throw 'Username or password was incorrect. Please try again.';
+          errorHappened = true;
+          throw 'Username or password was incorrect. Please try again.';
         }
-      } catch(e) {
+      } catch (e) {
         print('There was an error: $e');
         awaitContinue();
-        }
-      } while (errorHappened || !loginSuccesful);
-    }  
-  
+      }
+    } while (errorHappened || !loginSuccesful);
+  }
+
   Future<void> initialiseLogin() async {
     LoginChoice loginChoice = LoginChoice();
-    
+
     switch (loginChoice.loginChoice) {
       case 1:
         await signUp(userDetails); // Add await here
