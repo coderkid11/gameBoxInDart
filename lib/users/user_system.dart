@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
@@ -166,7 +167,9 @@ class UserSystem {
           this.password = userDetails[userRow][2];
           rockPaperScissorsHighScore = userDetails[userRow][3];
 
-          stdout.writeln();
+          clearScreen();
+          asciiLogo();
+          
           print(
               'Login Succesful. Welcome to GameBox, ${userDetails[userRow][0]}.');
           awaitContinue();

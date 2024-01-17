@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
@@ -33,8 +34,10 @@ Future<String> typeWriterEffectInput(String text) async {
 }
 
 String continueAppLoop() {
+  clearScreen();
+  asciiLogo();
+  
   String programLoop;
-  stdout.writeln();
   stdout.write("Continue (y/n): ");
   programLoop = stdin.readLineSync()!;
 
@@ -74,7 +77,7 @@ void appLoop() async {
         asciiLogo();
 
         GameSelection gameSelection = GameSelection();
-        gameSelection.gameSelection(user);
+        await gameSelection.gameSelection(user);
 
         if (!user.exitApp) {
           programLoop = continueAppLoop();
@@ -83,7 +86,6 @@ void appLoop() async {
         }
       } while ('y' == programLoop);
     }
-    
   } catch (e) {
     print('There was an error: $e');
     awaitContinue();
