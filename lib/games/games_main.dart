@@ -1,18 +1,13 @@
-import 'dart:io';
-import 'dart:async';
-import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
-import 'package:gamebox_in_dart/users/user_system.dart';
 import 'package:gamebox_in_dart/main.dart';
 import 'package:gamebox_in_dart/games/game_selection.dart';
-import 'package:gamebox_in_dart/globals.dart' as globals;
 
 class GameSelection {
-  late int gameChoice;
-
   void gameSelection(user) {
-    gameSelectionMenu(user);
+    // Function to call in main.dart
+    gameSelectionMenu(user); // Game Selection
 
     switch (user.choice) {
+      // Logic for game selections
       case 1:
         rockPaperScissors(user);
         break;
@@ -22,12 +17,23 @@ class GameSelection {
   }
 
   void rockPaperScissors(user) {
-    clearScreen();
-    asciiLogo();
-
-    print('Welcome to Rock Paper Scissors, ${user.name}.');
+    print('Called rockPaperScissors(), error must be inside function.');
     awaitContinue();
+
+    // calls function in abvious way - error handling done here
+    String programLoop;
+
+    do {
+      try {
+        rockPaperScissors(user);
+        programLoop = continueAppLoop();
+      } catch (e) {
+        print('There was an error: $e');
+        programLoop = continueAppLoop();
+      }
+    } while (programLoop == 'y');
   }
 
-  void chaseGame() {}
+  void chaseGame(
+      user) {} // calls function in obvious way - error handling done here
 }

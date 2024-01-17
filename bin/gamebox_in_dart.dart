@@ -1,6 +1,5 @@
 import 'package:gamebox_in_dart/main.dart';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
-import 'package:gamebox_in_dart/globals.dart' as globals;
 
 void main() async {
   clearScreen();

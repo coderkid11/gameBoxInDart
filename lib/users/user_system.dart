@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/main.dart';
 import 'package:gamebox_in_dart/users/login_choice.dart';
-import 'package:gamebox_in_dart/globals.dart' as globals;
 
 class UserSystem {
   late List<List<String>> userDetails;
   late String username;
   late String password;
   late String name;
+  late String rockPaperScissorsHighScore;
   late int choice;
+  late int userRow;
 
   bool exitApp = false;
   bool errorHappened = false;
@@ -56,6 +57,7 @@ class UserSystem {
       if (userDetails[i][1].trim() == username &&
           userDetails[i][2].trim() == password) {
         // Found the user, return 1-based index
+        userRow = i;
         return i;
       }
     }
@@ -116,7 +118,7 @@ class UserSystem {
 
           sink.writeln();
           // Write user information without an extra newline
-          sink.write('$name,$username,$password');
+          sink.write('$name,$username,$password,0-0');
 
           // Optionally, add a newline if you want to separate user entries
           // sink.writeln();
@@ -162,6 +164,7 @@ class UserSystem {
           name = userDetails[userRow][0];
           this.username = userDetails[userRow][1];
           this.password = userDetails[userRow][2];
+          rockPaperScissorsHighScore = userDetails[userRow][3];
 
           stdout.writeln();
           print(

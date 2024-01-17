@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/users/user_system.dart';
-import 'package:gamebox_in_dart/globals.dart' as globals;
 import 'package:gamebox_in_dart/games/games_main.dart';
 
 void clearScreen() {
@@ -69,19 +68,22 @@ void appLoop() async {
 
     String programLoop;
 
-    do {
-      clearScreen();
-      asciiLogo();
+    if (!user.exitApp) {
+      do {
+        clearScreen();
+        asciiLogo();
 
-      GameSelection gameSelection = GameSelection();
-      gameSelection.gameSelection(user);
+        GameSelection gameSelection = GameSelection();
+        gameSelection.gameSelection(user);
 
-      if (!user.exitApp) {
-        programLoop = continueAppLoop();
-      } else {
-        programLoop = 'n';
-      }
-    } while ('y' == programLoop);
+        if (!user.exitApp) {
+          programLoop = continueAppLoop();
+        } else {
+          programLoop = 'n';
+        }
+      } while ('y' == programLoop);
+    }
+    
   } catch (e) {
     print('There was an error: $e');
     awaitContinue();
