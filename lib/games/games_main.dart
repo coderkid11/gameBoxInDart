@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:gamebox_in_dart/main.dart';
 import 'package:gamebox_in_dart/games/game_selection.dart';
 import 'package:gamebox_in_dart/games/rock_paper_scissors.dart';
 
