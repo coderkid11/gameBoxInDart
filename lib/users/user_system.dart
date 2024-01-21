@@ -168,7 +168,7 @@ class UserSystem {
 
           clearScreen();
           asciiLogo();
-          
+
           print(
               'Login Succesful. Welcome to GameBox, ${userDetails[userRow][0]}.');
           awaitContinue();
@@ -199,5 +199,52 @@ class UserSystem {
         exitApp = true;
         break;
     }
+  }
+
+  Future<void> updateLastOption(String newOption) async {
+    // Find the user's row in the CSV file
+    int userRow = this.userRow;
+
+    if (userRow != -1) {
+      // Update the last option for the user
+      userDetails[userRow][3] = newOption;
+
+      // Write the updated user details back to the CSV file
+      await writeUserDetailsToFile();
+    } else {
+      print('User not found.');
+    }
+  }
+
+  Future<int> findUserRowByUsername(String username) async {
+    // Iterate through user details to find the row with the given username
+    for (int i = 1; i < userDetails.length; i++) {
+      if (userDetails[i][1].trim() == username) {
+        // Found the user, return 1-based index
+        return i;
+      }
+    }
+
+    // User not found
+    return -1;
+  }
+
+  Future<void> writeUserDetailsToFile() async {
+    // Open the file for writing
+    File file = File('lib/users/user_details.csv');
+    IOSink sink = file.openWrite();
+
+    // Write the updated user details to the file
+    for (int i = 0; i < userDetails.length; i++) {
+      sink.write(userDetails[i].join(','));
+
+      // Skip writing a newline after the last user's details
+      if (i < userDetails.length - 1) {
+        sink.writeln();
+      }
+    }
+
+    // Close the sink to ensure changes are flushed to the file
+    await sink.close();
   }
 }

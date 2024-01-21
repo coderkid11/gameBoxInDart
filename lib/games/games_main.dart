@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:gamebox_in_dart/games/game_selection.dart';
 import 'package:gamebox_in_dart/games/rock_paper_scissors.dart';
+import 'package:gamebox_in_dart/main.dart';
 
 class GameSelection {
   Future<void> gameSelection(user) async {
@@ -19,21 +20,23 @@ class GameSelection {
 
   Future<void> rockPaperScissors(user) async {
     // calls function in abvious way - error handling done here
-    bool programLoop;
+    bool errorHappened = false;
 
     do {
       try {
         RockPaperScissors rockPaperScissorsClass = RockPaperScissors();
         await rockPaperScissorsClass.rockPaperScissorsGame(user);
-        programLoop = continueGameLoop();
+        await rockPaperScissorsClass.finalHighScore(user);
       } catch (e) {
         print('There was an error: $e');
-        programLoop = continueGameLoop();
+        errorHappened = true;
+        awaitContinue();
       }
-    } while (programLoop);
+    } while (errorHappened);
   }
 
-  void chaseGame(user) {} // calls function in obvious way - error handling done here
+  void chaseGame(
+      user) {} // calls function in obvious way - error handling done here
 
   bool continueGameLoop() {
     String programLoop;

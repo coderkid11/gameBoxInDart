@@ -37,7 +37,7 @@ String continueAppLoop() {
   asciiLogo();
   
   String programLoop;
-  stdout.write("Continue (y/n): ");
+  stdout.write("Do you want to choose another game? (y/n): ");
   programLoop = stdin.readLineSync()!;
 
   return programLoop;
