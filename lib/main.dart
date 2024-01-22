@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/users/user_system.dart';
 import 'package:gamebox_in_dart/games/games_main.dart';
+import 'package:dart_console/dart_console.dart';
+
+final console = Console();
 
 void clearScreen() {
   if (Platform.isWindows) {

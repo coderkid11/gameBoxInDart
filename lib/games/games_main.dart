@@ -47,7 +47,6 @@ class GameSelection {
       try {
         ChaseGame chaseGameClass = ChaseGame();
         await chaseGameClass.chaseGame(user);
-        await chaseGameClass.finalHighScore(user);
       } catch (e) {
         print('There was an error: $e');
         errorHappened = true;
