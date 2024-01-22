@@ -200,27 +200,22 @@ class RockPaperScissors {
   Future<void> finalHighScore(user) async {
     int userScore = int.parse(scoreList[0]);
     int computerScore = int.parse(scoreList[2]);
+    int highScoreUser = int.parse(highScoreList[0]);
+    int highScoreComputer = int.parse(highScoreList[2]);
 
-    if (userScore > int.parse(highScoreList[0]) && userScore > computerScore) {
+    int currentDifference = userScore - computerScore;
+    int highScoreDifference = highScoreUser - highScoreComputer;
+
+    if (currentDifference > highScoreDifference) {
       String highScore = '$userScore-$computerScore';
-
       await user.updateLastOption(highScore);
-    }
-
-    if ((userScore + 1 - computerScore) >
-        (int.parse(highScoreList[0]) - int.parse(highScoreList[2]))) {
-      String highScore = '${userScore + 1}-$computerScore';
-
-      await user.updateLastOption(highScore);
-    } else if ((userScore + 1 - computerScore) ==
-        (int.parse(highScoreList[0]) - int.parse(highScoreList[2]))) {
-      if (userScore > int.parse(highScoreList[0])) {
+    } else if (currentDifference == highScoreDifference) {
+      if (userScore > highScoreUser) {
         String highScore = '$userScore-$computerScore';
-
         await user.updateLastOption(highScore);
       }
     }
-  }
+}
 
   bool continueGameLoop() {
     String programLoop;
