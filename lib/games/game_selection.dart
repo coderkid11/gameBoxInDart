@@ -41,7 +41,7 @@ void printGameMenu() {
   print('|     Game Selection     |');
   print('|                        |');
   print('| 1. Rock Paper Scissors |');
-  print('|   2. Coming Soon...    |');
+  print('|     2. Chase Game      |');
   print('|   3. Coming Soon...    |');
   print('|   4. Coming Soon...    |');
   print('|                        |');

@@ -10,6 +10,7 @@ class UserSystem {
   late String password;
   late String name;
   late String rockPaperScissorsHighScore;
+  late int chaseGameHighScore;
   late int choice;
   late int userRow;
 
@@ -118,7 +119,7 @@ class UserSystem {
 
           sink.writeln();
           // Write user information without an extra newline
-          sink.write('$name,$username,$password,0-0');
+          sink.write('$name,$username,$password,0-0,0');
 
           // Optionally, add a newline if you want to separate user entries
           // sink.writeln();
@@ -165,6 +166,7 @@ class UserSystem {
           this.username = userDetails[userRow][1];
           this.password = userDetails[userRow][2];
           rockPaperScissorsHighScore = userDetails[userRow][3];
+          chaseGameHighScore = int.parse(userDetails[userRow][4]);
 
           clearScreen();
           asciiLogo();

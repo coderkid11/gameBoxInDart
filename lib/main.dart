@@ -19,7 +19,7 @@ Future<void> sleep(Duration duration) {
 Future<void> typeWriterEffect(String text) async {
   for (int i = 0; i < text.length; i++) {
     stdout.write(text[i]);
-    await sleep(Duration(milliseconds: 30));
+    await sleep(Duration(milliseconds: 10));
   }
   stdout.writeln();
 }
@@ -27,7 +27,7 @@ Future<void> typeWriterEffect(String text) async {
 Future<String> typeWriterEffectInput(String text) async {
   for (int i = 0; i < text.length; i++) {
     stdout.write(text[i]);
-    await sleep(Duration(milliseconds: 30));
+    await sleep(Duration(milliseconds: 10));
   }
   return stdin.readLineSync()!;
 }
