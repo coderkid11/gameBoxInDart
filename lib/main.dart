@@ -7,6 +7,11 @@ import 'package:dart_console/dart_console.dart';
 
 final console = Console();
 
+void resetTerminal() {
+  stdin.echoMode = true;
+  stdin.lineMode = true;
+}
+
 void clearScreen() {
   if (Platform.isWindows) {
     print('\x1B[2J\x1B[H');

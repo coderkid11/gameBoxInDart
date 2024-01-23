@@ -4,6 +4,7 @@ import 'package:gamebox_in_dart/asciiArt/ascii_logo.dart';
 import 'package:gamebox_in_dart/main.dart';
 import 'package:dart_console/dart_console.dart';
 import 'package:gamebox_in_dart/asciiArt/ascii_chase_game.dart';
+import 'package:ffi/ffi.dart';
 
 // IMPORTANT: ALL COORDINATES ARE IN YX FORMAT BECUAUSE THAT IS HOW THE GAME BOARD IS SET UP
 
@@ -280,9 +281,6 @@ class ChaseGame {
     stdout.writeln();
 
     await typeWriterEffect('Good job!');
-    stdout.writeln();
-
-    awaitContinue();
   }
 
   Future<void> finalHighScore(user) async {
